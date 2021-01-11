@@ -1,4 +1,6 @@
 // import functions and grab DOM elements
+import { countsAsAYes } from './utils.js';
+
 const quizButton = document.getElementById('launch-quiz');
 const secretDiv = document.getElementById('secret-div');
 
@@ -28,23 +30,36 @@ quizButton.addEventListener('click', () => {
     //     - store that output to display later
     // - launch quiz prompts with 3 specific yes/no questions
     const firstAnswer = prompt('Was the first patent for a rollercoaster issued in 1885?');
-
-    if (firstAnswer.charAt(0).toUpperCase() === 'Y') {
+    let correctAnswers = 0;
+    
+    if (countsAsAYes(firstAnswer)) {
         // validation step!
         console.log('you got it!');
+
+        correctAnswers++;
     } else {
         // validation step!
         console.log('failed!');
     }
-    
-    // TRACK OVER TIME === LET (state)
-    // we need to to ____track over time_____ how many correct answers the user got . . .
-        // why? we want to show the user their score at the end
 
-        // - how do we evaluate the answers?
-    //     - what counts as a yes?
-    //         - anything that starts with a y counts as a yes
+    const secondAnswer = prompt('Was the Promenades Aeriennes build at Six Flags over Gerogia?');
+
+    if (!countsAsAYes(secondAnswer)) {
+        // validation step!
+        console.log('you got it!');
+
+        correctAnswers++;
+    } else {
+        // validation step!
+        console.log('failed!');
+    }
+
     // - make a results string
+    const resultsString = 'You got ' + correctAnswers + ' correct!';  
+
+    console.log(resultsString);
+
     // - display that results string
     //     - inject stuff into the `textContent` of our secret results div
+    secretDiv.textContent = resultsString;
 });
