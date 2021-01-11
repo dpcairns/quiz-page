@@ -1,6 +1,7 @@
 // import functions and grab DOM elements
 import { countsAsAYes } from './utils.js';
 
+// HTML Nodes, HTML Elements -- don't treat these as strings or numbers!
 const quizButton = document.getElementById('launch-quiz');
 const secretDiv = document.getElementById('secret-div');
 
@@ -8,58 +9,25 @@ const secretDiv = document.getElementById('secret-div');
 
 // set event listeners to update state and DOM
 quizButton.addEventListener('click', () => {
-    // PSEUDOCODE
-    // - launch an alert
     alert('Welcome to my quiz!');
-    // - launch a confirmation
+
     const confirmation = confirm('Do you want to proceed?');
-    //     - if the user says no, nothing else happens (`return` nothing to break out of the cool zone)
-    if (!confirmation) {
-    // if (confirmation === false) {
-
-        // return just ENDS THINGS
-        return;
-    }
-
-    //     - if the user says yes, launch the series of propmts
-    // - launch a first name prompt
-    const firstName = prompt('What is your first name?');
-    //     - store that output to display later
-    // - launch a last name prompt
-    const lastName = prompt('What is your last name?');
-    //     - store that output to display later
-    // - launch quiz prompts with 3 specific yes/no questions
-    const firstAnswer = prompt('Was the first patent for a rollercoaster issued in 1885?');
-    let correctAnswers = 0;
     
-    if (countsAsAYes(firstAnswer)) {
-        // validation step!
-        console.log('you got it!');
+    if (!confirmation) return;
 
-        correctAnswers++;
-    } else {
-        // validation step!
-        console.log('failed!');
-    }
+    let correctAnswers = 0;
+
+    const firstName = prompt('What is your first name?');
+    const lastName = prompt('What is your last name?');
+    const firstAnswer = prompt('Was the first patent for a rollercoaster issued in 1885?');
+    
+    if (countsAsAYes(firstAnswer)) correctAnswers++;
 
     const secondAnswer = prompt('Was the Promenades Aeriennes build at Six Flags over Gerogia?');
 
-    if (!countsAsAYes(secondAnswer)) {
-        // validation step!
-        console.log('you got it!');
+    if (!countsAsAYes(secondAnswer)) correctAnswers++;
 
-        correctAnswers++;
-    } else {
-        // validation step!
-        console.log('failed!');
-    }
+    const resultsString = `Hey ${firstName} ${lastName}! You got ${correctAnswers} correct!`;
 
-    // - make a results string
-    const resultsString = 'You got ' + correctAnswers + ' correct!';  
-
-    console.log(resultsString);
-
-    // - display that results string
-    //     - inject stuff into the `textContent` of our secret results div
     secretDiv.textContent = resultsString;
 });
